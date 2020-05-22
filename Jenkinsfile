@@ -6,7 +6,7 @@ node {
     }
 
     stage('Build image') {
-        app = docker.build('sjturner62/example-app')
+        app = docker.build('quay.io/sjturner62/example-app')
     }
 
     stage('Test') {
@@ -16,7 +16,7 @@ node {
     }
 
     stage('Push image') {
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+        docker.withRegistry('https://quay.io', 'quay-io-credentials') {
             app.push("${env.BRANCH_NAME}-latest")
             app.push("${env.BRANCH_NAME}-${env.BUILD_NUMBER}")
         }
